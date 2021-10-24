@@ -1,0 +1,102 @@
+﻿@page "/"
+@namespace EmployeeManagement.Web.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EmployeeManagement.Web</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="css/site.css" rel="stylesheet" />
+    <link href="EmployeeManagement.Web.styles.css" rel="stylesheet" />
+    <link href="~/css/site2.css" rel="stylesheet" />
+    <link href="~/css/main2.css" rel="stylesheet" />
+    <link href="~/css/util2.css" rel="stylesheet" />
+</head>
+<body>
+    <component type="typeof(App)" render-mode="ServerPrerendered" />
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <script src="_framework/blazor.server.js"></script>
+
+    
+   
+   
+<script>
+    $(function () {
+
+        var $sidebar = $("#sidebar"),
+            $window = $(window),
+            offset = $sidebar.offset(),
+            topPadding =160;
+        
+        $window.scroll(function () {
+            
+            if ($window.scrollTop() > offset.top) {
+                $sidebar.stop().animate({
+                    marginTop:/* $window.scrollTop() -*//* offset.top - topPadding*/ -topPadding
+                });
+            } else {
+                $sidebar.stop().animate({
+                    marginTop: 0
+                });
+            }
+        });
+
+    });
+
+
+    //header
+    const body = document.querySelector(".headerheaderupdown");
+    const nav = document.querySelector(".headerupdown nav");
+    
+    const lottiePlayer = document.querySelector("lottie-player");
+    const scrollUp = "scroll-up";
+    const scrollDown = "scroll-down";
+    let lastScroll = 0;
+
+    window.addEventListener("scroll", () => {
+        
+        const currentScroll = window.pageYOffset;
+        if (currentScroll <= 0) {
+            body.classList.remove(scrollUp);
+            return;
+        }
+
+        if (currentScroll > lastScroll && !body.classList.contains(scrollDown)) {
+            // down
+            body.classList.remove(scrollUp);
+            body.classList.add(scrollDown);
+            lottiePlayer.play();
+        } else if (
+            currentScroll < lastScroll &&
+            body.classList.contains(scrollDown)
+        ) {
+            // up
+            body.classList.remove(scrollDown);
+            body.classList.add(scrollUp);
+            lottiePlayer.stop();
+        }
+        lastScroll = currentScroll;
+    });
+</script>
+    }
+    
+</body>
+</html>

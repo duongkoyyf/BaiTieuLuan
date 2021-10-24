@@ -1,0 +1,38 @@
+﻿@page "/employeedetails/{id}"
+@page "/employeedetails"
+@inherits EmployeeDetailsBase
+
+@if (Employee == null || Employee.NhomHang== null)
+{
+    <div class="spinner"></div>
+}
+else
+{
+    <div class="row justify-content-center m-3">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header">
+                    <h1>@Employee.Ten</h1>
+                </div>
+
+                <div class="card-body text-center @ZoomImg">
+                    <img class="card-img-top " src="@Employee.PhotoPath"
+                         @onmousemove="@Mouse_Move" />
+
+                    <h1 style=" padding-top: 90px;">@Coordinates</h1>
+
+                    <h4>Nhóm hàng : @Employee.NhomHang.NhomHangName</h4>
+                    <h4>Giá : @Employee.Gia</h4>
+                    
+                    
+                </div>
+                <button class="btn btn-primary" @onclick="@Button_Click">@ButtonText</button>
+                <div class="card-footer text-center @CssClass">
+                    <a href="/" class="btn btn-primary">Back</a>
+                    <a href="#" class="btn btn-primary">Edit</a>
+                    <a href="#" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
